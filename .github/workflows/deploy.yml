@@ -21,9 +21,8 @@ jobs:
           docker build . -t registry.heroku.com/ynov-api-yohan/web
 
       - name: Install Heroku CLI
-        uses: akshnz/heroku-cli-action@v1
-        with:
-          version: "7.x"
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Log in to Heroku
         run: |
