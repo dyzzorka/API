@@ -24,13 +24,23 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
+      - name: Install expect
+        run: sudo apt-get install -y expect
+
+      - name: Log in to Heroku using interactive mode
+        run: |
+          expect <<EOF
+          spawn heroku login -i
+          expect "Enter your Heroku credentials."
+          send "${{ secrets.HEROKU_EMAIL }}\r"
+          expect "Password"
+          send "${{ secrets.HEROKU_API_KEY }}\r"
+          expect eof
+          EOF
+
       - name: Log in to Heroku container registry
         run: |
           echo ${{ secrets.HEROKU_API_KEY }} | docker login --username=_ --password-stdin registry.heroku.com
-
-      - name: Log in to Heroku (Heroku CLI)
-        run: |
-          echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
 
       - name: Push Docker image to Heroku container registry
         run: |
