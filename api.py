@@ -74,7 +74,7 @@ def predict_file(file:UploadFile=File(...)):
     
     return [int(i) for i in model.predict(X)]
 
-@app.get("/test_deploy", tags=['Models'])
+@app.get("/test_deploys", tags=['Models'])
 def model_endpoint():
-    return int(1)
+    return int(3)
 
