@@ -26,7 +26,7 @@ jobs:
 
       - name: Log in to Heroku
         run: |
-          echo ${{ secrets.HEROKU_API_KEY }} | heroku login --api-key
+          echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
 
       - name: Push Docker image to Heroku container registry
         run: |
