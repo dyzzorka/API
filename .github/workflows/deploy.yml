@@ -28,6 +28,10 @@ jobs:
         run: |
           echo ${{ secrets.HEROKU_API_KEY }} | docker login --username=_ --password-stdin registry.heroku.com
 
+      - name: Log in to Heroku (Heroku CLI)
+        run: |
+          echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
+
       - name: Push Docker image to Heroku container registry
         run: |
           docker push registry.heroku.com/ynov-api-yohan/web
