@@ -20,10 +20,14 @@ jobs:
         run: |
           docker build . -t registry.heroku.com/ynov-api-yohan/web
 
-      - name: Log in to Heroku
-        uses: akshnz/heroku-login-action@v1
+      - name: Install Heroku CLI
+        uses: akshnz/heroku-cli-action@v1
         with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          version: "7.x"
+
+      - name: Log in to Heroku
+        run: |
+          echo ${{ secrets.HEROKU_API_KEY }} | heroku login --api-key
 
       - name: Push Docker image to Heroku container registry
         run: |
